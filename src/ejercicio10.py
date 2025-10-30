@@ -29,7 +29,13 @@ def calcular_promedio(suma_total: int, cantidad: int) -> float:
         - El promedio debe tener precisión de float
     """
     # TODO: Implementar la función
-    return 0.0
+
+    if cantidad <= 0 or suma_total < 0:
+        return 0.0
+
+    promedio = suma_total / cantidad
+
+    return promedio
 
 
 def encontrar_maximo_minimo(numeros_texto: str) -> tuple[int, int]:

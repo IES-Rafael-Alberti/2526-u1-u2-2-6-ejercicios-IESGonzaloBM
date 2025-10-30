@@ -11,30 +11,32 @@ Fecha: 2025-10-25
 
 
 def simular_carrera(velocidad1: int, velocidad2: int, velocidad3: int, distancia_meta: int) -> tuple[int, int]:
-    """
-    Simula una carrera de 3 caracoles y determina el ganador y turnos necesarios.
-    
-    Esta función es la que se evaluará mediante tests automáticos.
-    
-    Args:
-        velocidad1: Velocidad del caracol 1 (cm/turno, 1-10)
-        velocidad2: Velocidad del caracol 2 (cm/turno, 1-10)
-        velocidad3: Velocidad del caracol 3 (cm/turno, 1-10)
-        distancia_meta: Distancia de la meta en cm (debe ser > 0)
-        
-    Returns:
-        tuple[int, int]: (ganador, turnos_necesarios)
-            - ganador: Número del caracol ganador (1, 2 o 3), o 0 si hay error
-            - turnos_necesarios: Número de turnos que duró la carrera
-        
-    Nota:
-        - Si alguna velocidad < 1 o > 10, devolver (0, 0)
-        - Si distancia_meta <= 0, devolver (0, 0)
-        - Si hay empate, gana el caracol con número más bajo
-        - Todos los caracoles avanzan simultáneamente cada turno
-    """
-    # TODO: Implementar la función
-    return (0, 0)
+    if not (1 <= velocidad1 <= 10) or not (1 <= velocidad2 <= 10) or not (1 <= velocidad3 <= 10) or distancia_meta <= 0:
+        return 0, 0
+
+    distancia_v1 = distancia_v2 = distancia_v3 = 0
+    turnos_necesarios = 0
+
+    while max(distancia_v1, distancia_v2, distancia_v3) < distancia_meta:
+        distancia_v1 += velocidad1
+        distancia_v2 += velocidad2
+        distancia_v3 += velocidad3
+        turnos_necesarios += 1
+
+    # Determinar el/los caracoles que alcanzaron la meta
+    resultados = {
+        1: distancia_v1,
+        2: distancia_v2,
+        3: distancia_v3
+    }
+
+    # Filtrar los que alcanzaron o superaron la meta
+    ganadores = [num for num, dist in resultados.items() if dist >= distancia_meta]
+
+    # En caso de empate, gana el caracol con número menor
+    ganador = min(ganadores)
+
+    return ganador, turnos_necesarios
 
 
 def solicitar_velocidades() -> tuple[int, int, int]:

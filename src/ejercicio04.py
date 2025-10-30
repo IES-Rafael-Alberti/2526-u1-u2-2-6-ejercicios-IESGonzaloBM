@@ -31,7 +31,24 @@ def calcular_imc(peso: float, altura: float) -> tuple[float, str]:
         - Si altura < 0.5 o altura > 2.5, devolver (0.0, "Altura fuera de rango")
     """
     # TODO: Implementar la función
-    return (0.0, "")
+
+    if peso <= 0 or altura <= 0:
+        return 0.0, "Datos inválidos"
+    elif peso < 20 or peso > 300:
+        return 0.0, "Peso fuera de rango"
+    elif altura < 0.5 or altura > 2.5:
+        return 0.0, "Altura fuera de rango"
+
+    IMC = peso / (altura ** 2)
+
+    if IMC < 18.5:
+        return IMC, "Bajo peso"
+    elif 18.5 <= IMC < 25:
+        return IMC, "Normal"
+    elif 25 <= IMC < 30:
+        return IMC, "Sobrepeso"
+    else:
+        return IMC, "Obesidad"
 
 
 def solicitar_peso() -> float:
